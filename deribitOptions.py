@@ -62,12 +62,10 @@ async def call_api(msg, lastTrades):
             temp.append(buy)
             temp.append(sell)
             history.append(temp)
-            print(i)
+            print("{0} : {1}".format(i, len(instruments)))
 
         df = pd.DataFrame(history)
         df.to_csv("deribit.csv", index=False, header=False)
-
-
 
 
 asyncio.get_event_loop().run_until_complete(call_api(json.dumps(instruments_msg), json.dumps(lastTrades)))
