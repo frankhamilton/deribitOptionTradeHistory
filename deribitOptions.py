@@ -48,8 +48,6 @@ async def call_api(msg, lastTrades):
             await websocket.send(a)
             response = await websocket.recv()
             response = json.loads(response)
-            temp = []
-            temp.append(instruments[i])
             buy = 0
             sell = 0
             for j in range(len(response["result"]["trades"])):
@@ -59,13 +57,13 @@ async def call_api(msg, lastTrades):
                 elif response["result"]["trades"][j]["direction"] == "buy":
                     buy += int(response["result"]["trades"][j]["amount"])
 
-            temp.append(buy)
-            temp.append(sell)
+            temp = [instruments[i], buy, sell]
+
             history.append(temp)
             print("{0} : {1}".format(i, len(instruments)))
 
-        df = pd.DataFrame(history)
-        df.to_csv("deribit.csv", index=False, header=False)
+        df = pd.DataFrame(history,  columns=["Instrument", "Buys", "Sells"])
+        df.to_csv("deribit.csv", index=False, header=True)
 
 
 asyncio.get_event_loop().run_until_complete(call_api(json.dumps(instruments_msg), json.dumps(lastTrades)))
