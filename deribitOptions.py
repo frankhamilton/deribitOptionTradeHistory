@@ -2,6 +2,8 @@ import asyncio
 import websockets
 import json
 import pandas as pd
+from time import time
+
 
 instruments_msg = \
 {
@@ -19,9 +21,11 @@ lastTrades = \
 {
   "jsonrpc": "2.0",
   "id": 9267,
-  "method": "public/get_last_trades_by_instrument",
+  "method": "public/get_last_trades_by_instrument_and_time",
   "params": {
     "instrument_name": "a",
+    "start_timestamp": int(time() * 1000) - 604800000,
+    "end_timestamp": int(time() * 1000),
     "count": 1000,
     "include_old": True,
     "sorting": "desc"
