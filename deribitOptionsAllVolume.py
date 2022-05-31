@@ -21,11 +21,9 @@ lastTrades = \
 {
   "jsonrpc": "2.0",
   "id": 9267,
-  "method": "public/get_last_trades_by_instrument_and_time",
+  "method": "public/get_last_trades_by_instrument",
   "params": {
     "instrument_name": "a",
-    "start_timestamp": int(time() * 1000) - 604800000,
-    "end_timestamp": int(time() * 1000),
     "count": 1000,
     "include_old": True,
     "sorting": "desc"
@@ -62,10 +60,8 @@ async def call_api(msg, lastTrades):
                     buy += int(response["result"]["trades"][j]["amount"])
 
             temp = [instruments[i], buy, sell]
-
             history.append(temp)
             print("{0} : {1}".format(i, len(instruments)))
-
         df = pd.DataFrame(history,  columns=["Instrument", "Buys", "Sells"])
         df.to_csv("deribit.csv", index=False, header=True)
 
