@@ -11,7 +11,7 @@ instruments_msg = \
   "id": 7617,
   "method": "public/get_instruments",
   "params": {
-    "currency": "BTC",
+    "currency": "ETH",
     "kind": "option",
     "expired": False
   }
@@ -67,7 +67,7 @@ async def call_api(msg, lastTrades):
             print("{0} : {1}".format(i, len(instruments)))
 
         df = pd.DataFrame(history,  columns=["Instrument", "Buys", "Sells"])
-        df.to_csv("deribit.csv", index=False, header=True)
+        df.to_csv("deribitEthWeekly.csv", index=False, header=True)
 
 
 asyncio.get_event_loop().run_until_complete(call_api(json.dumps(instruments_msg), json.dumps(lastTrades)))
