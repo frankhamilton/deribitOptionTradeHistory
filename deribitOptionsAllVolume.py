@@ -2,7 +2,6 @@ import asyncio
 import websockets
 import json
 import pandas as pd
-from time import time
 
 
 instruments_msg = \
